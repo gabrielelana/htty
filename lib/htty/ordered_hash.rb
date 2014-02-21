@@ -54,9 +54,8 @@ class HTTY::OrderedHash
   end
 
   def to_a
-    @inner_keys.inject([]) do |result, keys|
-      normalized_key, original_key = keys
-      result + [[original_key, @inner_hash[normalized_key]]]
+    @ordered_keys.inject([]) do |result, normalized_key|
+      result + [[@inner_keys[normalized_key], @inner_hash[normalized_key]]]
     end
   end
 
