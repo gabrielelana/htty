@@ -13,7 +13,7 @@ class HTTY::Headers
   end
 
   def self.credentials_from(basic_authentication)
-    /^Basic (.+)$/.match(basic_authentication) do |match|
+    if match = /^Basic (.+)$/.match(basic_authentication)
       credentials = Base64.decode64(match[1]).split(':')
       return yield *credentials if block_given?
       return credentials
