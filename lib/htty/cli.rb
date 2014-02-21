@@ -1,6 +1,5 @@
 require File.expand_path("#{File.dirname __FILE__}/cli/commands")
 require File.expand_path("#{File.dirname __FILE__}/cli/commands/help")
-require File.expand_path("#{File.dirname __FILE__}/cli/commands/quit")
 require File.expand_path("#{File.dirname __FILE__}/cli/input_device")
 require File.expand_path("#{File.dirname __FILE__}/cli/display")
 require File.expand_path("#{File.dirname __FILE__}/session")
@@ -27,10 +26,8 @@ class HTTY::CLI
   # interaction.
   def run!
     say_hello
-    catch :quit do
-      HTTY::CLI::InputDevice.new(self).commands do |command_line|
-        run_command_line(command_line)
-      end
+    HTTY::CLI::InputDevice.new(self).commands do |command_line|
+      run_command_line(command_line)
     end
     say_goodbye
   end
