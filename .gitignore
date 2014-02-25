@@ -3,6 +3,7 @@
 .ruby-gemset
 .ruby-version
 .yardoc/
+.vimrc
 *.gem
 Gemfile.lock
 doc/
