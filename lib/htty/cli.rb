@@ -26,8 +26,10 @@ class HTTY::CLI
   # interaction.
   def run!
     say_hello
-    HTTY::CLI::InputDevice.new(self).commands do |command_line|
-      run_command_line(command_line)
+    catch :quit do
+      HTTY::CLI::InputDevice.new(self).commands do |command_line|
+        run_command_line(command_line)
+      end
     end
     say_goodbye
   end
