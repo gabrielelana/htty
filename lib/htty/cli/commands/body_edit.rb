@@ -44,7 +44,7 @@ class HTTY::CLI::Commands::BodyEdit < HTTY::CLI::Command
     EOH
   end
 
-  # Returns related command classes for the _body-set_ command.
+  # Returns related command classes for the _body-edit_ command.
   def self.see_also_commands
     [ HTTY::CLI::Commands::BodyRequest,
       HTTY::CLI::Commands::BodyUnset,
@@ -52,7 +52,7 @@ class HTTY::CLI::Commands::BodyEdit < HTTY::CLI::Command
     ]
   end
 
-  # Performs the _body-set_ command.
+  # Performs the _body-edit_ command.
   def perform
     add_request_if_new do |request|
       request.body_set(with_editor do |editor|
@@ -60,8 +60,8 @@ class HTTY::CLI::Commands::BodyEdit < HTTY::CLI::Command
         if last_request_body = session.requests.last.body
           File.open(file.path, 'w+') {|f| f.write(last_request_body)}
         end
-        successfuly_edited_body = system(editor + ' ' + file.path)
-        if not successfuly_edited_body
+        result = system(editor + ' ' + file.path)
+        if not result
           return empty_body_because("Unable to use '#{editor}' to edit request's body")
         end
         body = File.read(file.path)
